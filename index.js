@@ -393,8 +393,11 @@ function do_rus_move() {
 
             recalculate_date();
 
-            if (count_war_days % 5 === 0) {
-                newsline(count_war_days / 5);
+            if (count_war_days >= 40) {
+
+                if (count_war_days % 5 === 0) {
+                    newsline(count_war_days / 5);
+                }
             }
 
         }, 1000);
