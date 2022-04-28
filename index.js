@@ -269,7 +269,7 @@ function obl_click(mapId) {
             return
         }
         clear_log();
-        if (count_war_days === 1) {
+        if (count_war_days === 5) {
             const cities = ['UKR285', 'UKR325'];
             occupy_cities(cities);
             setTimeout(() => {
