@@ -422,7 +422,7 @@ function recalculate_date() {
     let text = next_day.toLocaleDateString('uk-UA', { year: 'numeric', month: 'long', day: 'numeric' });
     text = text.substring(0, text.length - 3);
     count_war_days = count_days(start_date, next_day);
-    text += ` (${count_war_days})`
+    text += ` (${count_war_days}) день`
     $('#date').html(text)
 }
 
