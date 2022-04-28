@@ -6,9 +6,6 @@ let next_day = new Date();
 next_day.setMonth(1); // лютий 
 next_day.setDate(24);
 let count_war_days = 0;
-let isUsedReserve = false;
-const ru_reserve = 20000;
-
 
 let rus_move = 0;
 let rus_from = '';
@@ -281,7 +278,6 @@ function obl_click(mapId) {
 
         }
         fight(clicked, mapId)
-        checkRussianTroops();
         clicked = 0;
         do_rus_move();
 
@@ -306,17 +302,6 @@ function obl_click(mapId) {
 let ratio = null;
 var died_rus = 0;
 var died_ukr = 0;
-
-function checkRussianTroops() {
-    if (max_rus_troops <= 85000) {
-        // russia troops reserves
-        for (let [_, value] of Object.entries(army)) {
-            if (!value.rus) continue;
-
-            value.troops += ru_reserve;
-        }
-    }
-}
 
 function decide_move() {
     bestRatio = -1;
