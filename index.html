@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Game of Ukraine</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="style.css" rel="stylesheet">
+    <link rel="icon" href="tri.png">
+
+    <style>
+        @media (orientation: portrait) {
+            html {
+                transform: rotate(-90deg) scale(0.9);
+                transform-origin: left top;
+                width: 100vh;
+                height: 100vw;
+                overflow-x: hidden;
+                position: absolute;
+                top: 130%;
+                left: 0;
+            }
+        }
+        
+        .sm_legend_item {
+            color: white;
+        }
+        
+        .sm_legend_item[data-id='1'],
+        .sm_legend_item[data-id='3'] {
+            color: grey;
+        }
+        
+        #log {
+            position: absolute;
+            background: #222;
+            margin-top: 58vh;
+            width: 48vh;
+            height: 18vh;
+            font-size: 2.2vh;
+            color: white;
+            padding: 1.5vh;
+        }
+        
+        #date {
+            font-size: 3.5vh;
+            color: grey;
+            margin-bottom: 1vh;
+        }
+        
+        #line {
+            position: absolute;
+            background: white;
+            margin-top: 81vh;
+            width: 138vh;
+            height: 2vh;
+            font-size: 2.2vh;
+            color: grey;
+            padding: 1.5vh;
+            text-transform: uppercase;
+            overflow: hidden;
+            display: none;
+            transition: all 1s ease-in-out;
+        }
+        
+        .high {
+            margin-top: 40vh !important;
+            z-index: 10000;
+            background: yellow !important;
+            height: 5vh !important;
+        }
+        
+        .ani div {
+            white-space: nowrap;
+            /* animation properties */
+            -moz-transform: translateX(100%);
+            -webkit-transform: translateX(100%);
+            transform: translateX(100%);
+            -moz-animation: my-animation 15s linear infinite;
+            -webkit-animation: my-animation 15s linear infinite;
+            animation: my-animation 15s linear infinite;
+        }
+        /* for Firefox */
+        
+        @-moz-keyframes my-animation {
+            from {
+                -moz-transform: translateX(100%);
+            }
+            to {
+                -moz-transform: translateX(-100%);
+            }
+        }
+        /* for Chrome */
+        
+        @-webkit-keyframes my-animation {
+            from {
+                -webkit-transform: translateX(100%);
+            }
+            to {
+                -webkit-transform: translateX(-100%);
+            }
+        }
+        
+        @keyframes my-animation {
+            from {
+                -moz-transform: translateX(100%);
+                -webkit-transform: translateX(100%);
+                transform: translateX(100%);
+            }
+            to {
+                -moz-transform: translateX(-100%);
+                -webkit-transform: translateX(-100%);
+                transform: translateX(-100%);
+            }
+        }
+        
+        li {
+            margin-bottom: 1vh;
+            margin-left: 2vh;
+        }
+        
+        .hint {
+            z-index: 9000;
+            position: absolute;
+            color: #5e0404;
+            font-size: 1.7vh;
+            display: none;
+        }
+        
+        .zsu {
+            color: #b2b2ff;
+        }
+        
+        .ork {
+            color: #ff7f7f;
+        }
+    </style>
+</head>
+
+<body style="font-family: arial; background: black; height: 100vh; width: 140vh; margin-left: auto; margin-right: auto;">
+    <div id="rules" style="
+        position: absolute;
+        background: white;
+        margin-top: 0;
+        width: 110vh;
+        margin-left: 15vh;
+        height: 75vh;
+        font-size: 3vh;
+        color: black;
+        padding: 3vh;
+        z-index: 10000;
+        opacity: 0.9;">
+
+        <h1 style="text-align: center"><img src="tri.png" style="width: 12vh;"><br/> Битва за Україну</h1>
+        <h2 style="text-align: center; margin-top: -2vh">Правила гри</h2>
+        <ul>
+            <li>ЗСУ та орки ходять по черзі</li>
+            <li>за хід можна перемістити війська або атакувати</li>
+            <li>при переміщенні половина військ з однієї області переходить в іншу</li>
+            <li>при атаці втрати сторін залежать від співвідношення сил</li>
+            <li>втрати при атаці більші, ніж при захисті</li>
+        </ul>
+        <div onclick="$('#rules').fadeOut(1000); newsline(0);" style="background: blue;
+        color: white;
+        font-size: 5vh;
+        padding: 2vh;
+        cursor: pointer;
+        text-align: center;">
+            До бою!
+        </div>
+    </div>
+
+    <div id="log">
+        <div id="date"></div>
+        <div id="news">
+            Оберіть, звідки і куди переміщати війська
+        </div>
+    </div>
+
+    <div id="line">
+        <div>
+
+        </div>
+    </div>
+    <div id="hint1" class="hint"></div>
+    <div id="hint2" class="hint"></div>
+    <div id="map"></div>
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="mapdata.js"></script>
+<script src="countrymap.js"></script>
+<script src="index.js"></script>
+
+<script type="text/javascript">
+    simplemaps_countrymap.hooks.click_state = function(id) {
+        obl_click(id);
+    };
+    simplemaps_countrymap.hooks.complete = function() {
+        ukraine_init();
+    };
+</script>
+</body>
+
+</html>
