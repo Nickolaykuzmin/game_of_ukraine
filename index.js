@@ -453,7 +453,8 @@ function fight(from, to) {
         if (army[from].troops > 2000) plus = Math.round((army[from].troops - 2000) / 10);
         max_die += plus;
         ratio = army[from].troops / army[to].troops;
-        ratio /= 2;
+        // ratio /= 2;
+        if (army[from].rus) ratio /= 8;
         attackers = army[from].troops * ratio;
 
         if (attackers > army[to].troops) {
