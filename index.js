@@ -393,12 +393,12 @@ function do_rus_move() {
 
             recalculate_date();
 
-            if (count_war_days >= 40) {
+            // if (count_war_days >= 40) {
 
-                if (count_war_days % 5 === 0) {
-                    newsline(count_war_days / 5);
-                }
-            }
+            //     if (count_war_days % 5 === 0) {
+            //         newsline(count_war_days / 5);
+            //     }
+            // }
 
         }, 1000);
     }, 1000);
@@ -455,7 +455,7 @@ function fight(from, to) {
         ratio = army[from].troops / army[to].troops;
         // ratio /= 2;
         if (army[from].rus) ratio /= 9;
-        attackers = army[from].troops * ratio;
+        attackers = army[from].troops * ratio; //30 000
 
         if (attackers > army[to].troops) {
             if (army[to].troops < max_die) to_die = army[to].troops;
