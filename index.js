@@ -216,11 +216,11 @@ function count_troops() {
     updateLegendMap(2, died_ukr);
     updateLegendMap(3, died_rus);
 
-    if (!max_rus_troops) {
-        $('#line').css('background', 'yellow');
-        newsline(news.length - 1);
-        return;
-    }
+    // if (!max_rus_troops) {
+    //     $('#line').css('background', 'yellow');
+    //     newsline(news.length - 1);
+    //     return;
+    // }
 }
 
 function update(key) {
