@@ -8,6 +8,15 @@ next_day.setDate(24);
 let count_war_days = 0;
 let isUsedReserve = false;
 const ru_reserve = 20000;
+
+
+let rus_move = 0;
+let rus_from = '';
+let rus_to = '';
+let consolidate = true;
+let max_rus_troops = 0;
+let max_ua_troops = 0;
+
 const army = {
     UKR283: {
         name: "Крим",
@@ -162,7 +171,7 @@ var news = [
     'План по захопленню Києва - провалився!',
     'Орки вбивають мирних людей та приховують свої злочини',
     'Маріуполь - не впав!',
-    'З Білорусиії запускають ракети',
+    'З Білорусії запускають ракети',
     'Захід допомагає Україні',
     'Україна та український народ - незламний!',
 ];
@@ -188,12 +197,6 @@ function newsline(n) {
     $('#line div').html(text);
 }
 
-let rus_move = 0;
-let rus_from = '';
-let rus_to = '';
-let consolidate = true;
-let max_rus_troops = 0;
-let max_ua_troops = 0;
 
 function count_troops() {
     max_rus_troops = 0;
@@ -269,7 +272,7 @@ function obl_click(mapId) {
             return
         }
         clear_log();
-        if (count_war_days === 5) {
+        if (count_war_days === 1) {
             const cities = ['UKR285', 'UKR325'];
             occupy_cities(cities);
             setTimeout(() => {
@@ -305,9 +308,8 @@ var died_rus = 0;
 var died_ukr = 0;
 
 function checkRussianTroops() {
-    if (max_rus_troops <= 50000 && !isUsedReserve) {
+    if (max_rus_troops <= 85000) {
         // russia troops reserves
-        isUsedReserve = truel
         for (let [_, value] of Object.entries(army)) {
             if (!value.rus) continue;
 
@@ -405,6 +407,11 @@ function do_rus_move() {
             next_day.setDate(day + 1);
 
             recalculate_date();
+
+            if (count_war_days % 5 === 0) {
+                newsline(count_war_days / 5);
+            }
+
         }, 1000);
     }, 1000);
 }
@@ -447,7 +454,7 @@ function num(x) {
 
 function fight(from, to) {
     if (army[from].rus === army[to].rus) {
-        moved = Math.round(army[from].troops / 4);
+        moved = Math.round(army[from].troops / 2);
         army[from].troops -= moved;
         army[to].troops += moved;
         if (army[from].rus) log('Переміщено <span class="ork">' + num(moved) + '</span> в ' + army[to].name);
