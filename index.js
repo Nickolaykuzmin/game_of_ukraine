@@ -216,11 +216,11 @@ function count_troops() {
     updateLegendMap(2, died_ukr);
     updateLegendMap(3, died_rus);
 
-    // if (!max_rus_troops) {
-    //     $('#line').css('background', 'yellow');
-    //     newsline(news.length - 1);
-    //     return;
-    // }
+    if (!max_rus_troops) {
+        $('#line').css('background', 'yellow');
+        newsline(news.length - 1);
+        return;
+    }
 }
 
 function update(key) {
@@ -256,18 +256,19 @@ let clicked = 0;
 function obl_click(mapId) {
     // First click
     if (rus_move) return;
-
     if (clicked) {
         for (const [key, value] of Object.entries(army))
             if (simplemaps_countrymap_mapdata.state_specific[key])
                 simplemaps_countrymap_mapdata.state_specific[key].inactive = false;
 
         update(clicked);
+        simplemaps_countrymap.refresh();
 
-        if (clicked === mapId) {
+        if (mapId === clicked) {
             clicked = 0;
-            return
+            return;
         }
+
         clear_log();
         if (count_war_days === 1) {
             const cities = ['UKR285', 'UKR325'];
@@ -284,6 +285,7 @@ function obl_click(mapId) {
         return;
     }
 
+    // First click
     if (army[mapId].rus) return
 
     simplemaps_countrymap_mapdata.state_specific[mapId].color = '#ffd300';
